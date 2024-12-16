@@ -1,0 +1,23 @@
+---
+const { items, currentPath } = Astro.props;
+---
+
+<div class="w-64 border-r border-gray-800 h-screen sticky top-0 overflow-y-auto p-4">
+  <ul class="space-y-2">
+    {items.map((item) => (
+      <li>
+        <a
+          href={item.url}
+          class:list={[
+            'block px-4 py-2',
+            currentPath === item.url
+              ? 'border border-gray-500 rounded-lg'
+              : 'hover:border-b hover:border-gray-500'
+          ]}
+        >
+          {item.title}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

@@ -1,0 +1,129 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const authors = [
+  {
+    name: "Yukihiro Matsumoto",
+    role: "Ruby Creator",
+    image: "/images/matz.jpg",
+    bio: "Creator of Ruby, whose elegant design principles inspired RubyScript",
+    contributions: ["Language Design", "Core Concepts", "Philosophy"],
+    links: {
+      github: "https://github.com/matz",
+      twitter: "https://twitter.com/yukihiro_matz"
+    }
+  },
+  {
+    name: "RubyScript Core Team",
+    role: "Core Development",
+    image: "/images/team.jpg",
+    bio: "A dedicated group of developers maintaining and evolving RubyScript",
+    contributions: ["Language Implementation", "Standard Library", "Documentation"],
+    members: [
+      { name: "Jane Doe", role: "Lead Developer" },
+      { name: "John Smith", role: "Language Designer" },
+      { name: "Alice Johnson", role: "Documentation Lead" }
+    ]
+  },
+  {
+    name: "Community Contributors",
+    role: "Community",
+    image: "/images/community.jpg",
+    bio: "Hundreds of developers who have contributed to RubyScript's ecosystem",
+    stats: {
+      contributors: 250,
+      pullRequests: 1500,
+      packages: 300
+    }
+  }
+];
+---
+
+<Layout title="Authors">
+  <div class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8">Authors & Contributors</h1>
+    
+    <div class="grid grid-cols-1 gap-12">
+      {authors.map(author => (
+        <div class="border border-gray-800 rounded-lg p-8">
+          <div class="flex flex-col md:flex-row gap-8">
+            <div class="md:w-1/3">
+              <div class="aspect-square rounded-lg bg-gray-800 overflow-hidden">
+                <img
+                  src={author.image}
+                  alt={author.name}
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            
+            <div class="md:w-2/3">
+              <h2 class="text-2xl font-bold mb-2">{author.name}</h2>
+              <p class="text-ruby-primary mb-4">{author.role}</p>
+              <p class="text-gray-400 mb-6">{author.bio}</p>
+              
+              {author.contributions && (
+                <div class="mb-6">
+                  <h3 class="text-lg font-bold mb-3">Contributions</h3>
+                  <div class="flex flex-wrap gap-2">
+                    {author.contributions.map(contribution => (
+                      <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">
+                        {contribution}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {author.links && (
+                <div class="flex space-x-4">
+                  {Object.entries(author.links).map(([platform, url]) => (
+                    <a
+                      href={url}
+                      class="text-gray-400 hover:text-ruby-primary"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                    </a>
+                  ))}
+                </div>
+              )}
+              
+              {author.members && (
+                <div class="mt-6">
+                  <h3 class="text-lg font-bold mb-3">Team Members</h3>
+                  <div class="grid grid-cols-2 gap-4">
+                    {author.members.map(member => (
+                      <div class="p-4 bg-gray-800 rounded-lg">
+                        <p class="font-bold">{member.name}</p>
+                        <p class="text-sm text-gray-400">{member.role}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {author.stats && (
+                <div class="mt-6 grid grid-cols-3 gap-4">
+                  <div class="p-4 bg-gray-800 rounded-lg text-center">
+                    <p class="text-2xl font-bold">{author.stats.contributors}</p>
+                    <p class="text-sm text-gray-400">Contributors</p>
+                  </div>
+                  <div class="p-4 bg-gray-800 rounded-lg text-center">
+                    <p class="text-2xl font-bold">{author.stats.pullRequests}</p>
+                    <p class="text-sm text-gray-400">Pull Requests</p>
+                  </div>
+                  <div class="p-4 bg-gray-800 rounded-lg text-center">
+                    <p class="text-2xl font-bold">{author.stats.packages}</p>
+                    <p class="text-sm text-gray-400">Packages</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>

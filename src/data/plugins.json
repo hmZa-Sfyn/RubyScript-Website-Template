@@ -1,0 +1,32 @@
+{
+  "plugins": [
+    {
+      "name": "rs-typescript",
+      "description": "TypeScript integration for RubyScript",
+      "longDescription": "Seamlessly integrate TypeScript with RubyScript, providing type safety and modern development features.",
+      "downloads": 80000,
+      "author": "TypeMasters",
+      "version": "3.1.0",
+      "license": "MIT",
+      "repoUrl": "https://github.com/rubyscript/rs-typescript",
+      "readmeUrl": "https://github.com/rubyscript/rs-typescript#readme",
+      "tags": ["typescript", "types", "development"],
+      "compatibility": "RubyScript 1.0+",
+      "stars": 600
+    },
+    {
+      "name": "rs-formatter",
+      "description": "Code formatter for RubyScript",
+      "longDescription": "An opinionated code formatter that ensures consistent style across your RubyScript projects.",
+      "downloads": 70000,
+      "author": "Code Style Team",
+      "version": "1.5.0",
+      "license": "MIT",
+      "repoUrl": "https://github.com/rubyscript/rs-formatter",
+      "readmeUrl": "https://github.com/rubyscript/rs-formatter#readme",
+      "tags": ["formatter", "style", "development"],
+      "compatibility": "RubyScript 1.0+",
+      "stars": 450
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const allDocs = await getCollection('docs');
+const sidebarItems = allDocs
+  .sort((a, b) => (a.data.order || 0) - (b.data.order || 0))
+  .map(doc => ({
+    title: doc.data.title,
+    url: `/docs/${doc.slug}`,
+  }));
+---
+
+<Layout title={entry.data.title}>
+  <div class="flex">
+    <Sidebar items={sidebarItems} currentPath={`/docs/${entry.slug}`} />
+    <article class="flex-1 max-w-4xl mx-auto px-8 py-12 prose prose-invert">
+      <Content />
+    </article>
+  </div>
+</Layout>

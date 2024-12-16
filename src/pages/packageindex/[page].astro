@@ -1,0 +1,136 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Pagination from '../../components/Pagination.astro';
+import { packages } from '../../data/packages.json';
+
+export async function getStaticPaths({ paginate }) {
+  return paginate(packages, { pageSize: 30 });
+}
+
+const { page } = Astro.props;
+
+// Sort packages by different metrics
+const sortedByDownloads = [...packages].sort((a, b) => b.downloads - a.downloads);
+const sortedByStars = [...packages].sort((a, b) => b.stars - a.stars);
+
+// Calculate statistics
+const totalDownloads = packages.reduce((sum, pkg) => sum + pkg.downloads, 0);
+const averageStars = Math.round(packages.reduce((sum, pkg) => sum + pkg.stars, 0) / packages.length);
+
+// Define badges
+const getBadges = (pkg) => {
+  const badges = [];
+  if (pkg.downloads > 100000) badges.push({ text: "Popular", color: "bg-green-600" });
+  if (pkg.stars > 1000) badges.push({ text: "Trending", color: "bg-yellow-600" });
+  if (pkg.version.startsWith("0")) badges.push({ text: "Beta", color: "bg-purple-600" });
+  return badges;
+};
+---
+
+<Layout title={`Packages - Page ${page.currentPage}`}>
+  <div class="container mx-auto px-4 py-12">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-4xl font-bold">Package Index</h1>
+      <div class="flex space-x-4">
+        <select class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2">
+          <option>Sort by Downloads</option>
+          <option>Sort by Stars</option>
+          <option>Sort by Recent</option>
+        </select>
+        <input
+          type="search"
+          placeholder="Search packages..."
+          class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-64"
+        />
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div class="p-6 rounded-lg bg-ruby-primary">
+        <h3 class="text-2xl font-bold mb-2">Total Packages</h3>
+        <p class="text-4xl font-bold">{packages.length}</p>
+        <p class="text-sm mt-2">Growing daily</p>
+      </div>
+      
+      <div class="p-6 rounded-lg bg-gray-800">
+        <h3 class="text-2xl font-bold mb-2">Total Downloads</h3>
+        <p class="text-4xl font-bold">{totalDownloads.toLocaleString()}</p>
+        <p class="text-sm mt-2">Across all packages</p>
+      </div>
+
+      <div class="p-6 rounded-lg bg-gray-800">
+        <h3 class="text-2xl font-bold mb-2">Average Stars</h3>
+        <p class="text-4xl font-bold">⭐ {averageStars}</p>
+        <p class="text-sm mt-2">Per package</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {page.data.map(pkg => (
+        <div class="p-6 rounded-lg border border-gray-800 hover:border-ruby-primary">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-xl font-bold">{pkg.name}</h3>
+              <div class="flex space-x-2 mt-2">
+                {getBadges(pkg).map(badge => (
+                  <span class={`${badge.color} px-2 py-1 rounded-full text-xs`}>
+                    {badge.text}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <span class="text-sm text-gray-400">v{pkg.version}</span>
+          </div>
+          
+          <p class="text-gray-400 mb-4">{pkg.description}</p>
+          
+          <div class="space-x-2 mb-4">
+            {pkg.tags.map(tag => (
+              <span class="inline-block px-2 py-1 text-sm bg-gray-800 rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+          
+          <div class="grid grid-cols-3 gap-4 text-sm text-gray-400 mb-4">
+            <div class="flex items-center space-x-1">
+              <span>👤</span>
+              <span>{pkg.author}</span>
+            </div>
+            <div class="flex items-center space-x-1">
+              <span>⬇️</span>
+              <span>{pkg.downloads.toLocaleString()}</span>
+            </div>
+            <div class="flex items-center space-x-1">
+              <span>⭐</span>
+              <span>{pkg.stars}</span>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-800 pt-4 mt-4">
+            <div class="flex space-x-4">
+              <a 
+                href={pkg.repoUrl}
+                class="flex-1 text-center py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
+              >
+                Repository
+              </a>
+              <a 
+                href={pkg.readmeUrl}
+                class="flex-1 text-center py-2 rounded-lg bg-ruby-primary hover:bg-ruby-secondary transition-colors"
+              >
+                Documentation
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <Pagination
+      currentPage={page.currentPage}
+      totalPages={page.lastPage}
+      baseUrl="/packageindex"
+    />
+  </div>
+</Layout>

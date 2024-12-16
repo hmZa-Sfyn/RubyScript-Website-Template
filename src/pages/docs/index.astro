@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
+const docs = await getCollection('docs');
+const sidebarItems = docs
+  .sort((a, b) => (a.data.order || 0) - (b.data.order || 0))
+  .map(doc => ({
+    title: doc.data.title,
+    url: `/docs/${doc.slug}`,
+  }));
+---
+
+<Layout title="Documentation">
+  <div class="flex">
+    <Sidebar items={sidebarItems} currentPath="/docs" />
+    <div class="flex-1 max-w-4xl mx-auto px-8 py-12">
+      <h1 class="text-4xl font-bold mb-8">RubyScript Documentation</h1>
+      <p class="text-xl text-gray-400 mb-8">
+        Learn everything you need to know about RubyScript
+      </p>
+      <div class="grid grid-cols-2 gap-6">
+        {sidebarItems.map(item => (
+          <a
+            href={item.url}
+            class="p-6 rounded-lg border border-gray-800 hover:border-ruby-primary"
+          >
+            <h2 class="text-xl font-bold mb-2">{item.title}</h2>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

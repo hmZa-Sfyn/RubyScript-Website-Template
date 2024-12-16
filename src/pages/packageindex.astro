@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PackageCard from '../components/PackageCard.astro';
+import { packages } from '../data/packages.json';
+
+const sortedByDownloads = [...packages].sort((a, b) => b.downloads - a.downloads);
+const totalPackages = packages.length;
+---
+
+<Layout title="Package Index">
+  <div class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8">Package Index</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div class="p-6 rounded-lg bg-ruby-primary">
+        <h3 class="text-2xl font-bold mb-2">Total Packages</h3>
+        <p class="text-4xl font-bold">{totalPackages}</p>
+      </div>
+      
+      <div class="p-6 rounded-lg border border-gray-800">
+        <h3 class="text-2xl font-bold mb-2">Most Downloaded</h3>
+        <p class="text-xl">{sortedByDownloads[0].name}</p>
+        <p class="text-gray-400">{sortedByDownloads[0].downloads.toLocaleString()} downloads</p>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold mb-6">All Packages</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {packages.map(pkg => (
+        <PackageCard {...pkg} />
+      ))}
+    </div>
+  </div>
+</Layout>

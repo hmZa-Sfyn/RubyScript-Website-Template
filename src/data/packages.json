@@ -1,0 +1,32 @@
+{
+  "packages": [
+    {
+      "name": "rubyscript-web",
+      "description": "A modern web framework for RubyScript applications",
+      "longDescription": "RubyScript Web is a full-featured web framework that brings Ruby on Rails-like conventions to the modern JavaScript ecosystem.",
+      "downloads": 150000,
+      "author": "RubyScript Team",
+      "version": "1.2.0",
+      "license": "MIT",
+      "repoUrl": "https://github.com/rubyscript/rubyscript-web",
+      "readmeUrl": "https://github.com/rubyscript/rubyscript-web#readme",
+      "tags": ["framework", "web", "fullstack"],
+      "dependencies": ["rubyscript-core", "rubyscript-router"],
+      "stars": 1200
+    },
+    {
+      "name": "rs-test",
+      "description": "Testing framework for RubyScript",
+      "longDescription": "A comprehensive testing framework that makes testing RubyScript applications a joy.",
+      "downloads": 120000,
+      "author": "Test Masters",
+      "version": "2.0.1",
+      "license": "MIT",
+      "repoUrl": "https://github.com/rubyscript/rs-test",
+      "readmeUrl": "https://github.com/rubyscript/rs-test#readme",
+      "tags": ["testing", "tdd", "bdd"],
+      "dependencies": ["rubyscript-core"],
+      "stars": 800
+    }
+  ]
+}

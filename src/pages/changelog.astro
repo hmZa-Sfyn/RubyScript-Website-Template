@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Timeline from '../components/Timeline.astro';
+
+const timelineItems = [
+  {
+    date: "April 2024",
+    title: "RubyScript 1.0",
+    description: "Initial stable release with full TypeScript support",
+    image: "/images/v1-release.png"
+  },
+  {
+    date: "March 2024",
+    title: "Beta Release",
+    description: "Public beta with core features implemented"
+  },
+  {
+    date: "January 2024",
+    title: "Alpha Release",
+    description: "First public preview of RubyScript"
+  }
+];
+---
+
+<Layout title="Changelog">
+  <div class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8">Changelog</h1>
+    <Timeline items={timelineItems} />
+  </div>
+</Layout>

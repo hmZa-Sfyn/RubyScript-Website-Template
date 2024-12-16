@@ -1,0 +1,61 @@
+---
+const currentYear = new Date().getFullYear();
+
+const sections = [
+  {
+    title: "Resources",
+    links: [
+      { text: "Documentation", href: "/docs" },
+      { text: "Examples", href: "/examples" },
+      { text: "Blog", href: "/blog" },
+      { text: "Changelog", href: "/changelog" },
+    ]
+  },
+  {
+    title: "Community",
+    links: [
+      { text: "GitHub", href: "https://github.com/rubyscript" },
+      { text: "Discord", href: "https://discord.gg/rubyscript" },
+      { text: "Twitter", href: "https://twitter.com/rubyscript" },
+      { text: "Stack Overflow", href: "https://stackoverflow.com/questions/tagged/rubyscript" },
+    ]
+  },
+  {
+    title: "More",
+    links: [
+      { text: "About Us", href: "/about" },
+      { text: "Authors", href: "/authors" },
+      { text: "Packages", href: "/packageindex" },
+      { text: "Plugins", href: "/pluginindex" },
+    ]
+  }
+];
+---
+
+<footer class="border-t border-gray-800 mt-20 py-12 bg-github-darker">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div>
+        <h3 class="text-2xl font-bold text-ruby-primary mb-4">RubyScript</h3>
+        <p class="text-gray-400">Modern programming language for elegant web development</p>
+      </div>
+      {sections.map(section => (
+        <div>
+          <h4 class="font-bold mb-4">{section.title}</h4>
+          <ul class="space-y-2">
+            {section.links.map(link => (
+              <li>
+                <a href={link.href} class="text-gray-400 hover:text-ruby-primary">
+                  {link.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+      <p>&copy; {currentYear} RubyScript. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

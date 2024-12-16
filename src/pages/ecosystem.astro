@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="Ecosystem">
+  <div class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8">RubyScript Ecosystem</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <Card
+        title="Development Tools"
+        description="IDEs, editors, and development environments that support RubyScript"
+      />
+      <Card
+        title="Testing Tools"
+        description="Testing frameworks and utilities for RubyScript applications"
+      />
+      <Card
+        title="Build Tools"
+        description="Bundlers, compilers, and build systems for RubyScript"
+      />
+      <Card
+        title="Frameworks"
+        description="Web frameworks and application frameworks built with RubyScript"
+      />
+      <Card
+        title="Learning Resources"
+        description="Tutorials, courses, and learning materials for RubyScript"
+      />
+      <Card
+        title="Community"
+        description="Forums, chat rooms, and community resources for RubyScript developers"
+      />
+    </div>
+  </div>
+</Layout>
